@@ -4,25 +4,28 @@ import './index.css';
 
 //React.Componentを継承したクラス(コンポーネント)を定義する。Reactではクラス、関数をコンポーネントとして定義することができる。
 //Component: jsの関数的なもの。任意の入力値(props)を受け取り表示するReact要素を記述する。
-function Square(props) {
+
+//関数型コンポーネントに変更。renderメソッドだけをもってstateを持たないコンポーネントにできる。
+function Square(props){
     //renderはReact.Componentのサブクラスでは絶対にいるメソッド。htmlの描画ができないから意味ないクラスになってしまうからだと思われ。
-      //html要素を返す
-      return (
-          //stateの値(value:X)をセットする。
-        <button
-            className="square"
-            onClick={() => this.props.onClick()}
-        >
-          {this.props.value}
-        </button>
-      );
-  }
+    //html要素を返す
+    //stateの値(value:X)をセットする。
+    return (
+      <button
+        className="square"
+        //関数型コンポーネントはthis使わない。クラスじゃないからそりゃそうか。
+        onClick={() => props.onClick()}
+      >
+        {props.value}
+      </button>
+    );
+}
   
   class Board extends React.Component {
     //classの初期化。constructor内で引数としてpropsをとる。
     constructor(props) {
         super(props);
-        this.staete = {
+        this.state = {
             //nullで固定値設定
             squares: Array(9).fill(null),
         };
